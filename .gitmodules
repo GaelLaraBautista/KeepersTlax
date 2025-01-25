@@ -1,0 +1,3 @@
+[submodule "keeptlax-frontend"]
+	path = keeptlax-frontend
+	url = https://github.com/GaelLaraBautista/keeperstlax.git
