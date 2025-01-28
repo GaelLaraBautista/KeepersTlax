@@ -1,31 +1,39 @@
-import React, { useEffect, useState } from "react"; // Importamos React y algunos hooks para manejar el estado y los efectos.
+import React from "react";
+import {BrowserRouter as BrowserRouter, Routes, Route, Router} from "react-router-dom";
 
-function App() {
-  // Estado para guardar los productos obtenidos del backend.
-  const [products, setProducts] = useState([]);
+// Importar los componentes de cada pagina
+import Home from "./pages/Home";
+import Products from "./pages/Products";
+import Cart from "./pages/Cart";
+import Profile from "./pages/Profile";
+import Admin from "./pages/Admin";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
-  // useEffect se ejecuta después de que el componente se monta.
-  useEffect(() => {
-    // Hacemos una petición al backend para obtener los productos.
-    fetch("http://127.0.0.1:8000/products") // Dirección del endpoint que configuraste en FastAPI.
-      .then((response) => response.json()) // Convertimos la respuesta a JSON.
-      .then((data) => setProducts(data)) // Guardamos los productos en el estado.
-      .catch((error) => console.error("Error fetching products:", error)); // Si ocurre un error, lo mostramos en la consola.
-  }, []); // El arreglo vacío [] significa que este efecto solo se ejecutará una vez.
+function App (){
+  return(
+    <Router>
+      <div>
+        {/*Navegacion Principal */}
+        <nav>
+          <a href="/">Home</a>
+          <a href="/cart">Carrito</a>
+          <a href="/productos">Poductos</a>
+          <a href="/login">Incia sesión</a>
+        </nav>
 
-  return (
-    <div className="App">
-      <h1>Keppers Tlax</h1>
-      {/* Mostramos los productos como una lista */}
-      <ul>
-        {products.map((product) => (
-          <li key={product.id}>
-            {product.name} - ${product.price} {/* Nombre y precio del producto */}
-          </li>
-        ))}
-      </ul>
-    </div>
+        {/* Definimos las rutas */}
+        <Routes>
+          <Route path="/" element={<Home />}/>
+          <Route path="/products" element={<Products />}/>
+          <Route path="/cart" element={<Cart />}/>
+          <Route path="/admin" element={<Admin />}/>
+          <Route path="/profile" element={<Profile />}/>
+          <Route path="/login" element={<Login />}/>
+          <Route path="/signup" element={<Signup />}/>
+        </Routes>
+
+      </div>      
+    </Router>
   );
 }
-
-export default App; // Exportamos el componente para que pueda usarse en otros archivos.
